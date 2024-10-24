@@ -5,6 +5,11 @@ from django.http import JsonResponse
 from .models import Alumno, RegistroIngreso
 from django.views.decorators.csrf import csrf_exempt
 
+#Inicio
+def inicio(request):
+    alumnos = Alumno.objects.all()
+    return render(request, 'inicio/inicio.html', {'alumnos': alumnos})
+
 # Listar alumnos
 def listar_alumnos(request):
     alumnos = Alumno.objects.all()
@@ -66,7 +71,6 @@ def registrar_ingreso(request):
 #Scaneo Qr
 def escaneo_qr(request):
     return render(request, 'scanner/escaneo_qr.html')
-
 
 #Listado de ingresos
 def lista_ingresos(request):

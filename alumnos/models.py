@@ -9,6 +9,7 @@ from django.dispatch import receiver
 class Alumno(models.Model):
     nombre = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
+    grado = models.CharField(max_length=100)
     qr_code = models.ImageField(upload_to='qr_codes', blank=True)
 
     def __str__(self):

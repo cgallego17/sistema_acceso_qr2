@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container text-center my-5">
+  <!-- Logo centrado -->
+  <div class="mb-4">
+    <img src="{% static 'upload/logo.png' %}" alt="Logo del Colegio" class="img-fluid" style="max-width: 200px;">
+  </div>
+
+  <!-- Texto de bienvenida y descripción del sistema de ingreso -->
+  <h2>Bienvenidos al Sistema de Ingreso por QR</h2>
+  <p class="lead">Nuestro innovador sistema de ingreso por QR garantiza un acceso rápido y seguro para nuestros
+    alumnos, facilitando el control de asistencia.</p>
+
+  <!-- Imagen del colegio -->
+  <div class="my-4">
+    <img src="{% static 'upload/colegio.jpeg' %}" alt="Imagen del Colegio" class="img-fluid">
+  </div>
+
+  <!-- Descripción debajo de la imagen del colegio -->
+  <p class="text-muted">A través de la tecnología QR, cada alumno podrá acceder al colegio de manera eficiente y
+    moderna, asegurando una gestión más ágil y confiable del ingreso diario.</p>
+
+  <p class="text-muted">BUENOS CRISTIANOS VIRTUOSOS CIUDADANOS.</p>
+</div>
+{% endblock %}
