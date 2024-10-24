@@ -8,6 +8,7 @@
     <tr>
       <th>Nombre</th>
       <th>Email</th>
+      <th>Grado</th>
       <th>QR</th>
       <th>Acciones</th>
     </tr>
@@ -17,6 +18,7 @@
     <tr>
       <td>{{ alumno.nombre }}</td>
       <td>{{ alumno.email }}</td>
+      <td>{{ alumno.grado }}</td>
       <td><img src="{{ alumno.qr_code.url }}" width="100"></td>
       <td>
         <a href="{% url 'editar_alumno' alumno.pk %}" class="btn btn-warning">Editar</a>
