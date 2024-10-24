@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Alumnos</h2>
+<a href="{% url 'crear_alumno' %}" class="btn btn-primary">Crear Alumno</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>QR</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for alumno in alumnos %}
+    <tr>
+      <td>{{ alumno.nombre }}</td>
+      <td>{{ alumno.email }}</td>
+      <td><img src="{{ alumno.qr_code.url }}" width="100"></td>
+      <td>
+        <a href="{% url 'editar_alumno' alumno.pk %}" class="btn btn-warning">Editar</a>
+        <a href="{% url 'eliminar_alumno' alumno.pk %}" class="btn btn-danger">Eliminar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

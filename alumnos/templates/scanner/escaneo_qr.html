@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Escaneo de Código QR</h2>
+<div id="qr-reader" style="width: 300px;"></div>
+<div id="qr-reader-results"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+    function onScanSuccess(qrCodeMessage) {
+        // Enviar el código QR escaneado al servidor
+        fetch("{% url 'registrar_ingreso' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': csrftoken
+            },
+            body: 'qr_code=' + qrCodeMessage
+        })
+        .then(response => response.text())  // Obtener la respuesta como texto primero
+        .then(data => {
+            console.log('Respuesta del servidor (texto):', data);  // Ver la respuesta textual
+            try {
+                const jsonData = JSON.parse(data);  // Intentar convertir a JSON
+                if (jsonData.success) {
+                    alert('Ingreso registrado con éxito.');
+                } else {
+                    alert(jsonData.message);
+                }
+            } catch (error) {
+                console.error('Error al parsear JSON:', error);
+                alert('Error en la respuesta del servidor.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function onScanFailure(error) {
+        console.warn(`QR code scan error: ${error}`);
+    }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-reader", { fps: 10, qrbox: 250 });
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+</script>
+{% endblock %}
